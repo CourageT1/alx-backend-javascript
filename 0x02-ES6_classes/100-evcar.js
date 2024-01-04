@@ -1,0 +1,26 @@
+// EVCar.js
+import Car from './10-car.js';
+
+export default class EVCar extends Car {
+  constructor(brand, motor, color, range) {
+    super(brand, motor, color);
+    this._range = range;
+  }
+
+  get range() {
+    return this._range;
+  }
+
+  set range(newRange) {
+    if (typeof newRange === 'string') {
+      this._range = newRange;
+    } else {
+      console.error('Invalid type for range. Expected string.');
+    }
+  }
+
+  cloneCar() {
+    // Return a new instance of Car instead of EVCar for privacy reasons
+    return new Car(this._brand, this._motor, this._color);
+  }
+}
