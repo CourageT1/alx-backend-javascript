@@ -2,14 +2,14 @@
 function cleanSet(set, startString) {
   const resultArray = [];
 
-  set.forEach(value => {
+  set.forEach((value) => {
     if (value.startsWith(startString)) {
       const cleanedValue = startString === '' ? value : value.slice(startString.length);
       resultArray.push(cleanedValue);
     }
   });
 
-  console.log(resultArray.join('-'));
+  return resultArray.join('-');
 }
 
 export default cleanSet;
