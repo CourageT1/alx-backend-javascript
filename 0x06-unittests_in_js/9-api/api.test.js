@@ -1,18 +1,26 @@
 const request = require('request');
 const { expect } = require('chai');
 
-describe('Cart page', () => {
-  it('Returns payment methods for valid cart ID', (done) => {
-    request('http://localhost:7865/cart/12', (error, response, body) => {
+describe('Login endpoint', () => {
+  it('Returns welcome message with correct username', (done) => {
+    request.post('http://localhost:7865/login', { json: { userName: 'Betty' } }, (error, response, body) => {
       expect(response.statusCode).to.equal(200);
-      expect(body).to.equal('Payment methods for cart 12');
+      expect(body).to.equal('Welcome Betty');
       done();
     });
   });
+});
 
-  it('Returns 404 for invalid cart ID', (done) => {
-    request('http://localhost:7865/cart/hello', (error, response, body) => {
-      expect(response.statusCode).to.equal(404);
+describe('Available payments endpoint', () => {
+  it('Returns available payments object', (done) => {
+    request('http://localhost:7865/available_payments', (error, response, body) => {
+      expect(response.statusCode).to.equal(200);
+      expect(JSON.parse(body)).to.deep.equal({
+        payment_methods: {
+          credit_cards: true,
+          paypal: false
+        }
+      });
       done();
     });
   });
